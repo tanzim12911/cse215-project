@@ -2,8 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package csv;
-
+package model.src;
+import controller.src.Client;
 /**
  *
  * @author hellm
@@ -12,9 +12,6 @@ public class CsvRecord {
 
     private int id;
     private String[] data;
-
-    public CsvRecord() {
-    }
 
     public CsvRecord(int id, String[] data) {
         this.id = id;
