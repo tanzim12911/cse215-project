@@ -5,10 +5,12 @@
 package model.src;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- *
+ * Test File 
+ * Deals with all the files
  * @author hellm
  */
 public class CsvDatabase {
@@ -18,7 +20,7 @@ public class CsvDatabase {
         this.tables = new ArrayList<>();
     }
     
-    public CsvTable createTable(String tbName){
+    public CsvTable createTable(String tbName) throws IOException{
         CsvTable t = new CsvTable(tbName);
         tables.add(t);
         return t;

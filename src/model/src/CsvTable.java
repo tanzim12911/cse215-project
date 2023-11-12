@@ -11,11 +11,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
-//import java.util.List;
+import java.util.InputMismatchException;
 
 /**
+ * Deals with files and crud
  *
  * @author hellm
  */
@@ -25,17 +24,16 @@ public class CsvTable {
     private ArrayList<CsvRecord> records;
     private final File fl;
 
-    public CsvTable(String tableName) {
+    public CsvTable(String tableName) throws IOException {
         this.tableName = tableName;
         this.records = new ArrayList<>();
         this.fl = new File(System.getProperty("user.dir") + "/src/resources/" + tableName + ".csv");
     }
 
     public void create(String[] data) throws IOException {
-        int nextID = getNextId();
-
-        CsvRecord newRecord = new CsvRecord(nextID, data);
-
+        int id = this.getNextId();
+//        System.out.println(id);
+        CsvRecord newRecord = new CsvRecord(id, data);
         records.add(newRecord);
         saveToCsv();
     }
@@ -61,7 +59,6 @@ public class CsvTable {
             existingRec.setData(newData);
         }
         saveToCsv();
-
     }
 
     public void delete(int id) throws IOException {
@@ -83,9 +80,7 @@ public class CsvTable {
 
     private int getNextId() {
         int id = 0;
-
-        for (int i = 0; i < records.size(); i++) {
-            CsvRecord record = records.get(i);
+        for (CsvRecord record : records) {
             if (record.getId() > id) {
                 id = record.getId();
             }
@@ -98,6 +93,7 @@ public class CsvTable {
             for (int i = 0; i < records.size(); i++) {
                 CsvRecord record = records.get(i);
                 writer.write(record.getId() + ", ");
+//                System.out.println(record.getId());
                 for (int k = 0; k < record.getData().length; k++) {
                     writer.write(record.getData()[k]);
                     if (k != record.getData().length - 1) {
@@ -109,9 +105,10 @@ public class CsvTable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
-    public void loadFromCsv(String tableName) throws IOException{
+    public void loadFromCsv() throws IOException {
 //        try (Scanner scanner = new Scanner(fl)) {
 //            while (scanner.hasNextLine()) {
 //                List<String> lineData = Arrays.asList(scanner.nextLine().split(", "));
@@ -126,24 +123,32 @@ public class CsvTable {
 //            ex.printStackTrace();
 //        }
 
-        try (FileReader fr = new FileReader(this.fl)) {
-            BufferedReader rd = new BufferedReader(fr);
+        records.clear();
+
+        try (FileReader fr = new FileReader(this.fl); BufferedReader rd = new BufferedReader(fr)) {
             while (true) {
                 String line = rd.readLine();
-                if (line == null) {
+//                System.out.println(line);
+                if (line == null || line.isEmpty() || line.isBlank()) {
                     break;
                 }
                 String[] attributes = line.split(", ");
+
                 int id = Integer.parseInt(attributes[0]);
+
                 String[] data = Arrays.copyOfRange(attributes, 1, attributes.length);
-                records.add(new CsvRecord(id, data));
+                CsvRecord rec = new CsvRecord(id, data);
+                records.add(rec);
+
             }
-            rd.close();
-        } catch(IOException ex){
+        } catch (IOException ex) {
+            System.out.println("File " + " " + fl + " pera");
             ex.printStackTrace();
-        }catch (Exception ex) {
+        } catch (Exception ex) {
+            System.out.println("File " + " " + fl + " pera");
             ex.printStackTrace();
-        } 
+        }
+
     }
 
     public String getTableName() {

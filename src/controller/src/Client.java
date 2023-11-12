@@ -1,16 +1,23 @@
 package controller.src;
 
+/**
+ * Deals with client
+ *
+ * @author jawad
+ */
 public class Client {
+
     private String name;
     private int phoneNum;
     private String pin;
     private double balance;
-    
+
     public Client(String name, int phoneNum, String pin, double balance) {
         this.name = name;
         this.phoneNum = phoneNum;
         this.pin = pin;
         this.balance = balance;
+
     }
 
     public String getName() {
@@ -45,6 +52,11 @@ public class Client {
         this.balance = balance;
     }
 
+    /**
+     * Redundant CsvRecord will handle these
+     *
+     * @return String
+     */
     @Override
     public String toString() {
         return "Client [name=" + name + ", phoneNum=" + phoneNum + ", pin=" + pin + ", balance=" + balance + "]";

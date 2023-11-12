@@ -9,19 +9,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- *
+ * Test File
  * @author hellm
  */
 public class CSV {
 
     /**
-     *
+     * 
      * @throws java.io.IOException
      */
     public static void csv() throws IOException {
-        CsvDatabase db = new CsvDatabase();
-        CsvTable table = db.createTable("test");
-        table.loadFromCsv("test");
+//        CsvDatabase db = new CsvDatabase();
+//        CsvTable table = db.createTable("test");
+//        table.loadFromCsv("test");
 //        table.create(new String[]{ "John Doe", "30", "john@hagu.com" });
 //        table.create(new String[]{ "Bae", "2678", "bae@hagu.com" });
 //        table.create(new String[]{ "Bae2", "21", "bae@hagu.com" });
@@ -48,12 +48,12 @@ public class CSV {
         
         
         
-        ArrayList<CsvRecord> allRecords = table.readAll();
-        
-        for(int k=0; k<allRecords.size(); k++){
-            CsvRecord rec = allRecords.get(k);
-            System.out.println(rec);
-        }
+//        ArrayList<CsvRecord> allRecords = table.readAll();
+//        
+//        for(int k=0; k<allRecords.size(); k++){
+//            CsvRecord rec = allRecords.get(k);
+//            System.out.println(rec);
+//        }
     }
     
 }

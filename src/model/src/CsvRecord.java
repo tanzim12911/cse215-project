@@ -3,14 +3,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model.src;
-import controller.src.Client;
+
 /**
+ * Deals with records
  *
  * @author hellm
  */
 public class CsvRecord {
 
     private int id;
+
+    public void setId(int id) {
+        this.id = id;
+    }
     private String[] data;
 
     public CsvRecord(int id, String[] data) {
@@ -30,24 +35,25 @@ public class CsvRecord {
         this.data = data;
     }
 
-    /**
-     *
-     * @return ID, name, age, email
-     */
-    @Override
-    public String toString() throws NullPointerException {
-        String name = null;
-        String age = null;
-        String email = null;
-        try{
-            name = this.data[0];
-            age = this.data[1];
-            email = this.data[2];
-            return  name + " " + age + " " + email;
-        }catch(NullPointerException e){
-            System.out.println("Record destroyed");
-        }
-        return "";
-    }
-   
+//    /**
+//     *
+//     * @return ID, name, age, email
+//     */
+//    @Override
+//    public String toString() throws NullPointerException {
+//        String name = null;
+//        int phoneNum;
+//        double balance;
+//        String pin;
+//        try {
+//            name = this.data[0];
+//            phoneNum = Integer.parseInt(this.data[1]);
+//            pin = this.data[2];
+//            balance = Double.parseDouble(this.data[3]);
+//            return "Client [name=" + name + ", phoneNum=" + phoneNum + ", pin=" + pin + ", balance=" + balance + "]";
+//        } catch (NullPointerException e) {
+//            System.out.println("Record destroyed");
+//        }
+//        return "";
+//    }
 }

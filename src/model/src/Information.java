@@ -4,16 +4,18 @@
  */
 package model.src;
 
+import java.io.IOException;
+
 
 /**
- *
+ * Test File
  * @author hellm
  */
 public class Information extends CsvTable {
     private int id;
     private String[] data;
 
-    public Information(String tableName) {
+    public Information(String tableName) throws IOException {
         super(tableName);
     }
     
