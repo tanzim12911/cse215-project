@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package projectbkash;
+package main;
 
 import controller.src.Client;
 import java.io.IOException;
@@ -14,7 +14,7 @@ import java.util.Scanner;
  *
  * @author hellm
  */
-public class ProjectBkash {
+public class Main {
 
     /**
      * @param args the command line arguments
