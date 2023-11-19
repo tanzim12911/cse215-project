@@ -142,10 +142,10 @@ public class CsvTable {
 
             }
         } catch (IOException ex) {
-            System.out.println("File " + " " + fl + " pera");
+            System.out.println("File " + " " + fl + " error");
             ex.printStackTrace();
         } catch (Exception ex) {
-            System.out.println("File " + " " + fl + " pera");
+            System.out.println("File " + " " + fl + " error");
             ex.printStackTrace();
         }
 

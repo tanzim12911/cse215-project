@@ -53,12 +53,12 @@ public class Client {
     }
 
     /**
-     * Redundant CsvRecord will handle these
+     * 
      *
      * @return String
      */
     @Override
     public String toString() {
-        return "Client [name=" + name + ", phoneNum=" + phoneNum + ", pin=" + pin + ", balance=" + balance + "]";
+        return "Client name = " + name + ", phoneNum = " + phoneNum + ", pin = " + pin + ", balance = " + balance + " ";
     }
 }
