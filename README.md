@@ -6,9 +6,6 @@ choose their desired option from a list that shows all available options.
 
 ## Description
 
-The project consists of a main.c file and three header files. The header files are splash.h, login.h,
-and menu.h. Other files such as art.txt, credentials.txt, balance.txt, transaction.txt and some image
-files.
 
 
 ## Author
