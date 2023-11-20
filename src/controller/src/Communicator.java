@@ -119,7 +119,7 @@ public class Communicator extends CsvDatabase {
             if (search_name_only) {
                 if (name.equalsIgnoreCase(cl.getName())) {
                     return cl;
-                } 
+                }
             } else if (search_ph_only) {
                 if (phone == cl.getPhoneNum()) {
                     return cl;
@@ -129,19 +129,20 @@ public class Communicator extends CsvDatabase {
                     return cl;
                 }
             }
+            cl = null;
         }
         return cl;
     }
-    
+
     public ArrayList<Client> searchPossibleClient(String alphabet) {
         arc.clear();
         readAllClients();
         ArrayList<Client> possible_clients = new ArrayList<>();
         for (int i = 0; i < arc.size(); i++) {
             Client cl = arc.get(i);
-                if (cl.getName().toLowerCase().startsWith(alphabet.toLowerCase())) {
-                    possible_clients.add(cl);
-                } 
+            if (cl.getName().toLowerCase().startsWith(alphabet.toLowerCase())) {
+                possible_clients.add(cl);
+            }
         }
         return possible_clients;
     }

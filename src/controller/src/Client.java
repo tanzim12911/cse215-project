@@ -51,6 +51,10 @@ public class Client {
         this.balance = balance;
     }
 
+    public Client getClient() {
+        return this;
+    }
+
     /**
      *
      *

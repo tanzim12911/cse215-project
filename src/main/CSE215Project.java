@@ -21,7 +21,7 @@ public class CSE215Project {
      * @throws java.io.IOException
      */
     public static void main(String[] args) throws IOException {
-//        new WelcomePage().setVisible(true);
+        new WelcomePage().setVisible(true);
         Scanner input = new Scanner(System.in);
         Communicator talk = new Communicator();
 
