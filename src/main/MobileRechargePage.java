@@ -4,6 +4,9 @@
  */
 package main;
 
+import javax.swing.JOptionPane;
+import controller.src.Client;
+
 /**
  *
  * @author tanzi
@@ -13,8 +16,11 @@ public class MobileRechargePage extends javax.swing.JFrame {
     /**
      * Creates new form SendMoneyPage
      */
-    public MobileRechargePage() {
+    private static Client cl;
+    
+    public MobileRechargePage(Client cl) {
         initComponents();
+        MobileRechargePage.cl = cl;
     }
 
     /**
@@ -29,7 +35,7 @@ public class MobileRechargePage extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         phoneNumField = new javax.swing.JTextField();
-        AmountField = new javax.swing.JTextField();
+        amountField = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -52,7 +58,7 @@ public class MobileRechargePage extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Send");
+        jButton2.setText("Confirm");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -96,7 +102,7 @@ public class MobileRechargePage extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(AmountField))
+                                .addComponent(amountField))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -119,7 +125,7 @@ public class MobileRechargePage extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(AmountField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(amountField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
@@ -128,6 +134,7 @@ public class MobileRechargePage extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void operatorComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_operatorComboActionPerformed
@@ -135,7 +142,25 @@ public class MobileRechargePage extends javax.swing.JFrame {
     }//GEN-LAST:event_operatorComboActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        if(phoneNumField.getText().isEmpty() || amountField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please Complete All Fields");
+        }
+        else {
+            
+            String phoneNum = phoneNumField.getText();
+            String sent_amount = amountField.getText();
+            
+            double balance = cl.getBalance();
+            double amount = Double.parseDouble(sent_amount);
+            
+            balance -= amount;
+            
+            cl.setBalance(balance);
+            
+            JOptionPane.showMessageDialog(null, "Mobile Recharge Successfull!");
+            
+            dispose();
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -173,13 +198,13 @@ public class MobileRechargePage extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MobileRechargePage().setVisible(true);
+                new MobileRechargePage(cl).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField AmountField;
+    private javax.swing.JTextField amountField;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
