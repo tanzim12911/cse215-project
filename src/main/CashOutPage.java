@@ -6,6 +6,11 @@ package main;
 
 import javax.swing.JOptionPane;
 import controller.src.Client;
+import controller.src.Communicator;
+import controller.src.Transaction;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,7 +22,7 @@ public class CashOutPage extends javax.swing.JFrame {
      * Creates new form SendMoneyPage
      */
     private static Client cl;
-    
+
     public CashOutPage(Client cl) {
         initComponents();
         CashOutPage.cl = cl;
@@ -121,24 +126,30 @@ public class CashOutPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if(phoneNumField.getText().isEmpty() || amountField.getText().isEmpty()) {
+        if (phoneNumField.getText().isEmpty() || amountField.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please Complete All Fields");
-        }
-        else {
-            
+        } else {
+
             String phoneNum = phoneNumField.getText();
             String sent_amount = amountField.getText();
-            
+
             double balance = cl.getBalance();
             double amount = Double.parseDouble(sent_amount);
             double charge = amount * 0.01;
-            
+
             balance -= amount + charge;
-            
+
             cl.setBalance(balance);
-            
+            Transaction tr = new Transaction("Cash Out", balance, cl.getBalance(), Integer.parseInt(phoneNum));
+            Communicator talk;
+            try {
+                talk = new Communicator();
+                talk.logTransaction(tr);
+            } catch (IOException ex) {
+                Logger.getLogger(CashOutPage.class.getName()).log(Level.SEVERE, null, ex);
+            }
             JOptionPane.showMessageDialog(null, "CashOut Successfull!");
-            
+
             dispose();
         }
     }//GEN-LAST:event_jButton2ActionPerformed

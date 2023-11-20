@@ -4,37 +4,52 @@
  */
 package controller.src;
 
-/**
- *
- * @author hellm
- */
+import java.time.LocalDate;
 import java.util.Date;
 
+/**
+ *
+ * @author jawad
+ */
 public class Transaction {
 
     private Date date;
     private String type; // The type of the transaction, such as 'W' for withdrawal, 'D' for deposit
     private double amount;
     private double balance;
-    private int sender_id;
     private int reciever_phone;
+    private String date_local;
+    private String reciever_name;
+    private Client cl;
 
-    Transaction(String type, double amount, double balance, int sender_id, int reciever_phone) {
+    public Transaction(String type, double amount, double balance, int reciever_phone) {
         this.type = type;
         this.amount = amount;
         this.balance = balance;
-        this.sender_id = sender_id;
         this.reciever_phone = reciever_phone;
         this.date = new Date();
     }
 
-    
-    public int getSender_id() {
-        return sender_id;
+    public Transaction(String type, double amount, double balance, int reciever_phone, String date_local, Client cl, String reciever_name) {
+        this.type = type;
+        this.amount = amount;
+        this.balance = balance;
+        this.reciever_phone = reciever_phone;
+        this.date_local = date_local;
+        this.reciever_name = reciever_name;
+        this.cl = cl;
     }
 
-    public void setSender_id(int sender_id) {
-        this.sender_id = sender_id;
+    public String getReciever_name() {
+        return reciever_name;
+    }
+
+    public String getClient_name() {
+        return cl.getName();
+    }
+
+    public String getDate_local() {
+        return date_local;
     }
 
     public int getReciever_phone() {
@@ -44,7 +59,7 @@ public class Transaction {
     public void setReciever_phone(int reciever_phone) {
         this.reciever_phone = reciever_phone;
     }
-    
+
     public Date getDate() {
         return date;
     }

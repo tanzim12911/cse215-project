@@ -15,7 +15,7 @@ public class Client {
     private double balance;
     private ArrayList<Transaction> transactions;
     private int id;
-    
+
     public Client(String name, int phoneNum, String pin, double balance) {
         this.name = name;
         this.phoneNum = phoneNum;
@@ -63,6 +63,7 @@ public class Client {
         balance -= amount;
 //        transactions.add(new Transaction("Withdraw", amount, balance, id, ));
     }
+
     public void deposit(double amount) {
         balance += amount;
 //        transactions.add(new Transaction("Deposit", amount, balance, name));

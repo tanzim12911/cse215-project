@@ -6,6 +6,11 @@ package main;
 
 import javax.swing.JOptionPane;
 import controller.src.Client;
+import controller.src.Communicator;
+import controller.src.Transaction;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -121,10 +126,9 @@ public class SendMoneyPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if(phoneNumField.getText().isEmpty() || amountField.getText().isEmpty()) {
+        if (phoneNumField.getText().isEmpty() || amountField.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please Complete All Fields");
-        }
-        else {
+        } else {
             
             String phoneNum = phoneNumField.getText();
             String sent_amount = amountField.getText();
@@ -134,12 +138,19 @@ public class SendMoneyPage extends javax.swing.JFrame {
             balance -= Double.parseDouble(sent_amount);
             
             cl.setBalance(balance);
-            
+            Transaction tr = new Transaction("Send Money", balance, cl.getBalance(), Integer.parseInt(phoneNum));
+            Communicator talk;
+            try {
+                talk = new Communicator();
+                talk.logTransaction(tr);
+            } catch (IOException ex) {
+                Logger.getLogger(SendMoneyPage.class.getName()).log(Level.SEVERE, null, ex);
+            }
             JOptionPane.showMessageDialog(null, "Send Money Successfull!");
             
             dispose();
         }
-            
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

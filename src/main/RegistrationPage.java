@@ -167,7 +167,7 @@ public class RegistrationPage extends javax.swing.JFrame {
                 try {
                     phoneNum = Integer.parseInt(phoneNumField.getText());
                 } catch (NumberFormatException e) {
-                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Please provide correct format for phone number");
                 }
                 String pin = pinField.getText();
                 double balance = 0;

@@ -6,6 +6,11 @@ package main;
 
 import javax.swing.JOptionPane;
 import controller.src.Client;
+import controller.src.Communicator;
+import controller.src.Transaction;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -157,6 +162,14 @@ public class MobileRechargePage extends javax.swing.JFrame {
             
             cl.setBalance(balance);
             
+            Transaction tr = new Transaction("Mobile Recharge", balance, cl.getBalance(), Integer.parseInt(phoneNum));
+            Communicator talk;
+            try {
+                talk = new Communicator();
+                talk.logTransaction(tr);
+            } catch (IOException ex) {
+                Logger.getLogger(MobileRechargePage.class.getName()).log(Level.SEVERE, null, ex);
+            }
             JOptionPane.showMessageDialog(null, "Mobile Recharge Successfull!");
             
             dispose();

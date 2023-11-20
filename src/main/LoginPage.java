@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import controller.src.Communicator;
 import java.io.IOException;
 import controller.src.Client;
+import controller.src.Transaction;
 
 /**
  *
@@ -21,8 +22,7 @@ public class LoginPage extends javax.swing.JFrame {
     public LoginPage() {
         initComponents();
     }
-     private Client cl;
-    
+    private Client cl;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -127,26 +127,28 @@ public class LoginPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
+        
         if (userNameField.getText().isEmpty() || pinField.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please Complete All Fields");
         } else {
             try {
                 Communicator talk = new Communicator();
-
+                
                 String enter_name = userNameField.getText();
                 String enter_pin = pinField.getText();
-
+                
                 Client cl = talk.loginClient(enter_name, enter_pin);
                 if (cl != null) {
                     this.cl = cl;
+                    Transaction tr = new Transaction("Initial log", cl.getBalance(), cl.getBalance(), 0);
+                    talk.logTransaction(tr);
                     new MainMenuPage(cl).setVisible(true);
                 } else {
-                    System.out.println("Wrong credentials. Please try again");
+                    JOptionPane.showMessageDialog(null, "Wrong credentials. Please try again");
                 }
             } catch (IOException e) {
             }
-
+            
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -193,7 +195,7 @@ public class LoginPage extends javax.swing.JFrame {
         });
     }
 
-   
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

@@ -22,27 +22,25 @@ public class CSE215Project {
      */
     public static void main(String[] args) throws IOException {
         new WelcomePage().setVisible(true);
-        Scanner input = new Scanner(System.in);
-        Communicator talk = new Communicator();
+//        Scanner input = new Scanner(System.in);
+//        Communicator talk = new Communicator();
 
 //      Read All the clients
-        ArrayList<Client> readAllClients = talk.readAllClients();
-
-        for (Client client : readAllClients) {
-            System.out.println(client);
-        }
-        
+//        ArrayList<Client> readAllClients = talk.readAllClients();
+//
+//        for (Client client : readAllClients) {
+//            System.out.println(client);
+//        }
 //        Search Clients
-        
-        Client searchClient = talk.searchClient("jawad", 12345678, false, false, true);
-        System.out.println("Found : " + searchClient);
-
+//        
+//        Client searchClient = talk.searchClient("jawad", 12345678, false, false, true);
+//        System.out.println("Found : " + searchClient);
 //        Search client with similar names
-        ArrayList<Client> searchPossibleClient = talk.searchPossibleClient("m");
-        System.out.println("Found " + searchPossibleClient.size() + " matches: ");
-        for(int i = 0; i<searchPossibleClient.size();i++){
-            System.out.println(searchPossibleClient.get(i));
-        }
+//        ArrayList<Client> searchPossibleClient = talk.searchPossibleClient("m");
+//        System.out.println("Found " + searchPossibleClient.size() + " matches: ");
+//        for(int i = 0; i<searchPossibleClient.size();i++){
+//            System.out.println(searchPossibleClient.get(i));
+//        }
     }
 
 }

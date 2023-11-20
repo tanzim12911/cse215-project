@@ -17,14 +17,12 @@ public class MainMenuPage extends javax.swing.JFrame {
      * Creates new form MainMenuPage
      */
     private static Client cl;
-    
+
     public MainMenuPage(Client cl) {
         initComponents();
         MainMenuPage.cl = cl;
-        
+
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -83,6 +81,11 @@ public class MainMenuPage extends javax.swing.JFrame {
         });
 
         jButton8.setText("PayBill");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/logo_white.png"))); // NOI18N
         jLabel1.setText("jLabel1");
@@ -152,6 +155,10 @@ public class MainMenuPage extends javax.swing.JFrame {
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         new CashOutPage(cl).setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
      * @param args the command line arguments

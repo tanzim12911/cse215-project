@@ -6,6 +6,12 @@ package main;
 
 import javax.swing.JOptionPane;
 import controller.src.Client;
+import controller.src.Communicator;
+import controller.src.Transaction;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author tanzi
@@ -16,7 +22,7 @@ public class AddMoneyPage extends javax.swing.JFrame {
      * Creates new form SendMoneyPage
      */
     private static Client cl;
-    
+
     public AddMoneyPage(Client cl) {
         initComponents();
         AddMoneyPage.cl = cl;
@@ -66,6 +72,11 @@ public class AddMoneyPage extends javax.swing.JFrame {
         jLabel4.setText("Fund Source:");
 
         sourceFundField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bank Transfer", "VISA", "MasterCard" }));
+        sourceFundField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sourceFundFieldActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -118,21 +129,28 @@ public class AddMoneyPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if(amountField.getText().isEmpty()) {
+        if (amountField.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please Complete All Fields");
-        }
-        else {
-            
+        } else {
             String sent_amount = amountField.getText();
-            
+
             double balance = cl.getBalance();
-            
+
             balance += Double.parseDouble(sent_amount);
-            
+
             cl.setBalance(balance);
-            
+
+            Transaction tr = new Transaction("Add Money", balance, cl.getBalance(), 0);
+            Communicator talk;
+            try {
+                talk = new Communicator();
+                talk.logTransaction(tr);
+            } catch (IOException ex) {
+                Logger.getLogger(MobileRechargePage.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
             JOptionPane.showMessageDialog(null, "Add Money Successfull!");
-            
+
             dispose();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -140,6 +158,10 @@ public class AddMoneyPage extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void sourceFundFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sourceFundFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sourceFundFieldActionPerformed
 
     /**
      * @param args the command line arguments
