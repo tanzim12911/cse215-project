@@ -10,21 +10,6 @@ The project consists of a main.c file and three header files. The header files a
 and menu.h. Other files such as art.txt, credentials.txt, balance.txt, transaction.txt and some image
 files.
 
-login.h  : Contains a function called login() that prompts the user to input their login credentials
-           verify them in order to approve login attempt.
-
-menu.h   : Contains a function called menu() that prompts the user to choose their desired operation.
-
-splash.h : Includes a fuction called splash() that prints an ASCII image.
-
-art.txt  : Text file containing the ASCII image from splash.h header file.
-
-balance.txt : Text file keeping track of account balance.
-
-transaction.txt : Text file keeping track of all transaction.
-
-credentials.txt : Text file containing login credentials.
-
 
 ## Author
 
