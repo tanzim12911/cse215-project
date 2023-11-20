@@ -17,7 +17,6 @@ public class Client {
         this.phoneNum = phoneNum;
         this.pin = pin;
         this.balance = balance;
-
     }
 
     public String getName() {
@@ -53,7 +52,7 @@ public class Client {
     }
 
     /**
-     * 
+     *
      *
      * @return String
      */
@@ -61,4 +60,5 @@ public class Client {
     public String toString() {
         return "Client name = " + name + ", phoneNum = " + phoneNum + ", pin = " + pin + ", balance = " + balance + " ";
     }
+
 }

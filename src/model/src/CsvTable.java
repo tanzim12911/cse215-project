@@ -28,6 +28,9 @@ public class CsvTable {
         this.tableName = tableName;
         this.records = new ArrayList<>();
         this.fl = new File(System.getProperty("user.dir") + "/src/resources/" + tableName + ".csv");
+        this.fl.setExecutable(true);
+        this.fl.setWritable(true);
+        this.fl.setReadable(true);
     }
 
     public void create(String[] data) throws IOException {
