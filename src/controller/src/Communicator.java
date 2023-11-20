@@ -24,6 +24,7 @@ public class Communicator extends CsvDatabase {
     private int auth_id;
     ArrayList<Client> arc;
     private CsvTable client_table;
+    private CsvTable transaction_table;
 
     public Communicator() throws IOException {
         this.field_balance = 3;
@@ -33,6 +34,7 @@ public class Communicator extends CsvDatabase {
         this.arc = new ArrayList<>();
         CsvDatabase db = new CsvDatabase();
         this.client_table = db.createTable("client");
+        this.transaction_table = db.createTable("transaction");
         client_table.loadFromCsv();
     }
 
