@@ -177,6 +177,9 @@ public class RegistrationPage extends javax.swing.JFrame {
             } catch (IOException e) {
                 e.getStackTrace();
             }
+            
+            JOptionPane.showMessageDialog(null, "Registration Successful!");
+            dispose();
 
         }
 
