@@ -140,7 +140,7 @@ public class AddMoneyPage extends javax.swing.JFrame {
 
             cl.setBalance(balance);
 
-            Transaction tr = new Transaction("Add Money", balance, cl.getBalance(), 0);
+            Transaction tr = new Transaction("Add Money", Double.parseDouble(sent_amount), cl.getBalance(), 0);
             Communicator talk;
             try {
                 talk = new Communicator();

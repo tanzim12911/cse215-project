@@ -22,7 +22,7 @@ public class MobileRechargePage extends javax.swing.JFrame {
      * Creates new form SendMoneyPage
      */
     private static Client cl;
-    
+
     public MobileRechargePage(Client cl) {
         initComponents();
         MobileRechargePage.cl = cl;
@@ -147,32 +147,36 @@ public class MobileRechargePage extends javax.swing.JFrame {
     }//GEN-LAST:event_operatorComboActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if(phoneNumField.getText().isEmpty() || amountField.getText().isEmpty()) {
+        if (phoneNumField.getText().isEmpty() || amountField.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please Complete All Fields");
-        }
-        else {
-            
+        } else {
+
             String phoneNum = phoneNumField.getText();
             String sent_amount = amountField.getText();
-            
+
             double balance = cl.getBalance();
             double amount = Double.parseDouble(sent_amount);
-            
-            balance -= amount;
-            
-            cl.setBalance(balance);
-            
-            Transaction tr = new Transaction("Mobile Recharge", balance, cl.getBalance(), Integer.parseInt(phoneNum));
-            Communicator talk;
-            try {
-                talk = new Communicator();
-                talk.logTransaction(tr);
-            } catch (IOException ex) {
-                Logger.getLogger(MobileRechargePage.class.getName()).log(Level.SEVERE, null, ex);
+
+            if (amount > balance) {
+                JOptionPane.showMessageDialog(null, "You do not have enough balance!");
+            } else {
+                balance -= amount;
+
+                cl.setBalance(balance);
+
+                Transaction tr = new Transaction("Mobile Recharge", amount, cl.getBalance(), Integer.parseInt(phoneNum));
+                Communicator talk;
+                try {
+                    talk = new Communicator();
+                    talk.logTransaction(tr);
+                } catch (IOException ex) {
+                    Logger.getLogger(MobileRechargePage.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                JOptionPane.showMessageDialog(null, "Mobile Recharge Successfull!");
+
+                dispose();
             }
-            JOptionPane.showMessageDialog(null, "Mobile Recharge Successfull!");
-            
-            dispose();
+
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 

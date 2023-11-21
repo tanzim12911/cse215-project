@@ -45,42 +45,48 @@ public class MainMenuPage extends javax.swing.JFrame {
         setTitle("Main Menu");
         setResizable(false);
 
-        jButton1.setText("Balance");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/check-balance.png"))); // NOI18N
+        jButton1.setToolTipText("Check Balance");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Send Money");
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/send-money.png"))); // NOI18N
+        jButton4.setToolTipText("Send Money");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
 
-        jButton5.setText("Add Money");
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/add-money.png"))); // NOI18N
+        jButton5.setToolTipText("Add Money");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
             }
         });
 
-        jButton6.setText("Mobile Rechange");
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/recharge.png"))); // NOI18N
+        jButton6.setToolTipText("Mobile Rechange");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
             }
         });
 
-        jButton7.setText("CashOut");
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/cash-out.png"))); // NOI18N
+        jButton7.setToolTipText("CashOut");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
             }
         });
 
-        jButton8.setText("PayBill");
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/transaction-history.png"))); // NOI18N
+        jButton8.setToolTipText("Transaction History");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
@@ -112,7 +118,7 @@ public class MainMenuPage extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(102, 102, 102)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addContainerGap(105, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,7 +163,7 @@ public class MainMenuPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
+        new TransactionHistoryPage().setVisible(true);
     }//GEN-LAST:event_jButton8ActionPerformed
 
     /**

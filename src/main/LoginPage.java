@@ -143,6 +143,7 @@ public class LoginPage extends javax.swing.JFrame {
                     Transaction tr = new Transaction("Initial log", cl.getBalance(), cl.getBalance(), 0);
                     talk.logTransaction(tr);
                     new MainMenuPage(cl).setVisible(true);
+                    dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "Wrong credentials. Please try again");
                 }

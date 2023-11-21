@@ -137,20 +137,25 @@ public class CashOutPage extends javax.swing.JFrame {
             double amount = Double.parseDouble(sent_amount);
             double charge = amount * 0.01;
 
-            balance -= amount + charge;
+            if ((amount + charge) > balance) {
+                JOptionPane.showMessageDialog(null, "You do not have enough balance!");
+            } else {
+                balance -= amount + charge;
 
-            cl.setBalance(balance);
-            Transaction tr = new Transaction("Cash Out", balance, cl.getBalance(), Integer.parseInt(phoneNum));
-            Communicator talk;
-            try {
-                talk = new Communicator();
-                talk.logTransaction(tr);
-            } catch (IOException ex) {
-                Logger.getLogger(CashOutPage.class.getName()).log(Level.SEVERE, null, ex);
+                cl.setBalance(balance);
+                Transaction tr = new Transaction("Cash Out", (amount + charge), cl.getBalance(), Integer.parseInt(phoneNum));
+                Communicator talk;
+                try {
+                    talk = new Communicator();
+                    talk.logTransaction(tr);
+                } catch (IOException ex) {
+                    Logger.getLogger(CashOutPage.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                JOptionPane.showMessageDialog(null, "CashOut Successfull!");
+
+                dispose();
             }
-            JOptionPane.showMessageDialog(null, "CashOut Successfull!");
 
-            dispose();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 

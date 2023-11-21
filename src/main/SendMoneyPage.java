@@ -22,7 +22,7 @@ public class SendMoneyPage extends javax.swing.JFrame {
      * Creates new form SendMoneyPage
      */
     private static Client cl;
-    
+
     public SendMoneyPage(Client cl) {
         initComponents();
         SendMoneyPage.cl = cl;
@@ -129,26 +129,31 @@ public class SendMoneyPage extends javax.swing.JFrame {
         if (phoneNumField.getText().isEmpty() || amountField.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please Complete All Fields");
         } else {
-            
+
             String phoneNum = phoneNumField.getText();
             String sent_amount = amountField.getText();
-            
+
             double balance = cl.getBalance();
-            
-            balance -= Double.parseDouble(sent_amount);
-            
-            cl.setBalance(balance);
-            Transaction tr = new Transaction("Send Money", balance, cl.getBalance(), Integer.parseInt(phoneNum));
-            Communicator talk;
-            try {
-                talk = new Communicator();
-                talk.logTransaction(tr);
-            } catch (IOException ex) {
-                Logger.getLogger(SendMoneyPage.class.getName()).log(Level.SEVERE, null, ex);
+
+            if (Double.parseDouble(sent_amount) > balance) {
+                JOptionPane.showMessageDialog(null, "You do not have enough balance!");
+            } else {
+                balance -= Double.parseDouble(sent_amount);
+
+                cl.setBalance(balance);
+                Transaction tr = new Transaction("Send Money", Double.parseDouble(sent_amount), cl.getBalance(), Integer.parseInt(phoneNum));
+                Communicator talk;
+                try {
+                    talk = new Communicator();
+                    talk.logTransaction(tr);
+                } catch (IOException ex) {
+                    Logger.getLogger(SendMoneyPage.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                JOptionPane.showMessageDialog(null, "Send Money Successfull!");
+
+                dispose();
             }
-            JOptionPane.showMessageDialog(null, "Send Money Successfull!");
-            
-            dispose();
+
         }
 
     }//GEN-LAST:event_jButton2ActionPerformed
