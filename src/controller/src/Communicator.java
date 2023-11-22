@@ -169,7 +169,7 @@ public class Communicator extends CsvDatabase {
         readAllClients();
         Client search_client = null;
         for (int i = 0; i < arc.size(); i++) {
-            cl = arc.get(i);
+            search_client = arc.get(i);
             if (search_name_only) {
                 if (search_client != null && name.equalsIgnoreCase(search_client.getName())) {
                     return search_client;
@@ -224,6 +224,7 @@ public class Communicator extends CsvDatabase {
      * @return list of all transactions made by all users
      */
     public ArrayList<Transaction> readAllTransactions() {
+        transaction.clear();
         ArrayList<CsvRecord> allRecords = transaction_table.readAll();
         for (int k = 0; k < allRecords.size(); k++) {
             CsvRecord rec = allRecords.get(k);
@@ -232,21 +233,25 @@ public class Communicator extends CsvDatabase {
             int ph = Integer.parseInt(rec.getData()[tr_field_receiver_phone]);
             String reciever_name = "Not registered";
             Client reciever = searchClient("", ph, false, true, false);
-            CsvRecord read = client_table.read(1);
-            String user_name = read.getData()[client_field_name];
+            CsvRecord read_auth = client_table.read(auth_id);
             if (reciever != null) {
                 reciever_name = reciever.getName();
             }
-            String dateString = rec.getData()[tr_field_date];
+            System.out.println(read_auth.getData()[client_field_name]);
+            System.out.println(rec.getData()[tr_field_user]);
+            if (rec.getData()[tr_field_user].equalsIgnoreCase(read_auth.getData()[client_field_name])) {
 
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss zzz yyyy");
+                String dateString = rec.getData()[tr_field_date];
 
-            LocalDateTime dateTime = LocalDateTime.parse(dateString, dtf);
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss zzz yyyy");
 
-            DateTimeFormatter format_output = DateTimeFormatter.ofPattern("MMM dd, yyyy hh:mm:ss a");
-            String date_string = dateTime.format(format_output);
+                LocalDateTime dateTime = LocalDateTime.parse(dateString, dtf);
 
-            transaction.add(new Transaction(user_name, rec.getData()[tr_field_type], amount, balance, ph, date_string, cl, reciever_name));
+                DateTimeFormatter format_output = DateTimeFormatter.ofPattern("MMM dd, yyyy hh:mm:ss a");
+                String date_string = dateTime.format(format_output);
+
+                transaction.add(new Transaction(rec.getData()[tr_field_type], amount, balance, ph, date_string, cl, reciever_name));
+            }
         }
         return transaction;
     }

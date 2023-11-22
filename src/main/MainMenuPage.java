@@ -5,6 +5,7 @@
 package main;
 
 import controller.src.Client;
+import controller.src.Communicator;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,11 +18,13 @@ public class MainMenuPage extends javax.swing.JFrame {
      * Creates new form MainMenuPage
      */
     private static Client cl;
+    private static Communicator talk;
 
-    public MainMenuPage(Client cl) {
+    public MainMenuPage(Client cl, Communicator talk) {
         initComponents();
         MainMenuPage.cl = cl;
 
+        MainMenuPage.talk = talk;
     }
 
     /**
@@ -143,7 +146,7 @@ public class MainMenuPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        new AddMoneyPage(cl).setVisible(true);
+        new AddMoneyPage(cl, talk).setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -151,19 +154,20 @@ public class MainMenuPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        new SendMoneyPage(cl).setVisible(true);
+        new SendMoneyPage(cl, talk).setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        new MobileRechargePage(cl).setVisible(true);
+        new MobileRechargePage(cl, talk).setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        new CashOutPage(cl).setVisible(true);
+        new CashOutPage(cl, talk).setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        new TransactionPage().setVisible(true);
+        new TransactionPage(talk).setVisible(true);
+
     }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
@@ -196,7 +200,7 @@ public class MainMenuPage extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainMenuPage(cl).setVisible(true);
+                new MainMenuPage(cl, talk).setVisible(true);
             }
         });
     }

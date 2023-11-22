@@ -3,3 +3,18 @@
 3, Mir, Initial log, 1023.0, 1023.0, 0, Wed Nov 22 18:52:50 BDT 2023
 4, Mir, Initial log, 1023.0, 1023.0, 0, Wed Nov 22 18:53:31 BDT 2023
 5, Mir, Initial log, 1023.0, 1023.0, 0, Wed Nov 22 18:57:55 BDT 2023
+6, Rex, Add Money From Bank Transfer, 5000.0, 5000.0, 0, Wed Nov 22 22:56:20 BDT 2023
+7, Rex, Add Money / TypeBank Transfer, 5000.0, 5000.0, 0, Wed Nov 22 23:23:54 BDT 2023
+8, Rex, Send Money, 200.0, 4800.0, 12345678, Wed Nov 22 23:24:04 BDT 2023
+9, Rex, Add Money / TypeBank Transfer, 1200.0, 1200.0, 0, Wed Nov 22 23:34:27 BDT 2023
+10, Rex, Send Money, 12.0, 1188.0, 2300, Wed Nov 22 23:34:44 BDT 2023
+11, Rex, Add Money / TypeVISA, 1234.0, 1234.0, 0, Wed Nov 22 23:37:13 BDT 2023
+12, Rex, Cash Out, 124.23, 1109.77, 12345678, Wed Nov 22 23:37:26 BDT 2023
+13, Mir, Add Money / TypeBank Transfer, 1200.0, 2223.0, 0, Wed Nov 22 23:37:57 BDT 2023
+14, Rex, Add Money From Bank Transfer, 4200.0, 4200.0, 0, Wed Nov 22 23:54:47 BDT 2023
+15, Rex, Cash Out, 1212.0, 2988.0, 12345678, Wed Nov 22 23:55:11 BDT 2023
+16, Rex, Add Money From Bank Transfer, 1200.0, 1200.0, 0, Thu Nov 23 00:00:32 BDT 2023
+17, Mir, Add Money From Bank Transfer, 1000.0, 2023.0, 0, Thu Nov 23 00:01:23 BDT 2023
+18, Rex, Add Money From Bank Transfer, 500.0, 500.0, 0, Thu Nov 23 00:05:21 BDT 2023
+19, Rex, Add Money From Bank Transfer, 400.0, 400.0, 0, Thu Nov 23 00:09:05 BDT 2023
+20, Rex, Add Money From Bank Transfer, 7999.0, 8399.0, 0, Thu Nov 23 00:09:25 BDT 2023

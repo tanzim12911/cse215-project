@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -19,21 +20,44 @@ import javax.swing.table.DefaultTableModel;
 public class TransactionPage extends javax.swing.JFrame {
 
     private DefaultTableModel tableModel;
+    private static Communicator talk;
+    
     /**
      * Creates new form TransactionHistory
+     * @param talk
      */
-    public TransactionPage() {
+    public TransactionPage(Communicator talk) {
         initComponents();
-
+        TransactionPage.talk = talk;
         // Create the table model with column names
         tableModel = new DefaultTableModel(
                 new Object[][]{},
-                new String[]{"Username", "Receiver Phone", "Receiver Name", "Type", "Amount", "Balance", "Date"}
+                new String[]{"Receiver Phone", "Receiver Name", "Type", "Amount", "Balance", "Date"}
         );
 
 //        // Set the model for the JTable
         jTable1.setModel(tableModel);
-        
+
+        ArrayList<Transaction> transactions = TransactionPage.talk.readAllTransactions();
+        // Clear existing data in the table model
+        tableModel.setRowCount(0);
+        // Add transactions to the table model
+        for (Transaction t : transactions) {
+            String name = "";
+            if (t.getReciever_name() != null) {
+                name = t.getReciever_name();
+            } else {
+                name = "N/A";
+            }
+            tableModel.addRow(new Object[]{
+                t.getReciever_phone(),
+                name,
+                t.getType(),
+                t.getAmount(),
+                t.getBalance(),
+                t.getDate_local()
+            });
+        }
     }
 
     /**
@@ -87,8 +111,9 @@ public class TransactionPage extends javax.swing.JFrame {
 
     /**
      * @param args the command line arguments
+     * @throws java.io.IOException
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws IOException {
 
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -115,38 +140,9 @@ public class TransactionPage extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                TransactionPage frame = new TransactionPage();
-                try {
-                    
-                    Communicator talk = new Communicator();
-                    ArrayList<Transaction> transactions = talk.readAllTransactions();
-                    // Clear existing data in the table model
-                    frame.tableModel.setRowCount(0);
-
-                    // Add transactions to the table model
-                    for (Transaction t : transactions) {
-                        String name = "";
-                        if (t.getReciever_name() != null) {
-                            name = t.getReciever_name();
-                        } else {
-                            name = "N/A";
-                        }
-                        frame.tableModel.addRow(new Object[]{
-                            t.getUser(),
-                            t.getReciever_phone(),
-                            name,
-                            t.getType(),
-                            t.getAmount(),
-                            t.getBalance(),
-                            t.getDate_local()
-                        });
-                    }
-                } catch (IOException ex) {
-                    Logger.getLogger(TransactionPage.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                frame.setVisible(true);
-//                new TransactionPage().setVisible(true);
+                new TransactionPage(talk).setVisible(true);
             }
         });
     }
