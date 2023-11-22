@@ -163,7 +163,7 @@ public class MainMenuPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        new TransactionHistoryPage().setVisible(true);
+        new TransactionPage().setVisible(true);
     }//GEN-LAST:event_jButton8ActionPerformed
 
     /**

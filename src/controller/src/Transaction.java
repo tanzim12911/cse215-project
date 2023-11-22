@@ -21,7 +21,9 @@ public class Transaction {
     private String date_local;
     private String reciever_name;
     private Client cl;
+    private String user;
 
+    
     public Transaction(String type, double amount, double balance, int reciever_phone) {
         this.type = type;
         this.amount = amount;
@@ -30,7 +32,7 @@ public class Transaction {
         this.date = new Date();
     }
 
-    public Transaction(String type, double amount, double balance, int reciever_phone, String date_local, Client cl, String reciever_name) {
+    public Transaction(String user, String type, double amount, double balance, int reciever_phone, String date_local, Client cl, String reciever_name) {
         this.type = type;
         this.amount = amount;
         this.balance = balance;
@@ -38,6 +40,15 @@ public class Transaction {
         this.date_local = date_local;
         this.reciever_name = reciever_name;
         this.cl = cl;
+        this.user = user;
+    }
+    
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public String getReciever_name() {

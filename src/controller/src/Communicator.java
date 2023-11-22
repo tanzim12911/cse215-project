@@ -20,15 +20,16 @@ import java.time.format.DateTimeFormatter;
  */
 public class Communicator extends CsvDatabase {
 
-    private final int field_name;
-    private final int field_phone;
-    private final int field_pin;
-    private final int field_balance;
-    private final int field_type;
-    private final int field_amount;
-    private final int field_left_balance;
-    private final int field_receiver_phone;
-    private final int field_date;
+    private final int client_field_name;
+    private final int client_field_phone;
+    private final int client_field_pin;
+    private final int client_field_balance;
+    private final int tr_field_user;
+    private final int tr_field_type;
+    private final int tr_field_amount;
+    private final int tr_field_left_balance;
+    private final int tr_field_receiver_phone;
+    private final int tr_field_date;
     private int auth_id;
     ArrayList<Client> arc;
     ArrayList<Transaction> transaction;
@@ -44,16 +45,17 @@ public class Communicator extends CsvDatabase {
      */
     public Communicator() throws IOException {
 //        CSV Columns for transaction
-        this.field_date = 4;
-        this.field_receiver_phone = 3;
-        this.field_left_balance = 2;
-        this.field_amount = 1;
-        this.field_type = 0;
+        this.tr_field_date = 5;
+        this.tr_field_receiver_phone = 4;
+        this.tr_field_left_balance = 3;
+        this.tr_field_amount = 2;
+        this.tr_field_type = 1;
+        this.tr_field_user = 0;
 //        CSV Columns for client
-        this.field_balance = 3;
-        this.field_pin = 2;
-        this.field_phone = 1;
-        this.field_name = 0;
+        this.client_field_balance = 3;
+        this.client_field_pin = 2;
+        this.client_field_phone = 1;
+        this.client_field_name = 0;
 
         this.arc = new ArrayList<>();
         this.transaction = new ArrayList<>();
@@ -65,6 +67,7 @@ public class Communicator extends CsvDatabase {
         this.transaction_table = db.createTable("transaction");
 
         client_table.loadFromCsv();
+        transaction_table.loadFromCsv();
     }
 
     /**
@@ -97,11 +100,11 @@ public class Communicator extends CsvDatabase {
         ArrayList<CsvRecord> allRecords = client_table.readAll();
         for (int k = 0; k < allRecords.size(); k++) {
             CsvRecord rec = allRecords.get(k);
-            double balance = Double.parseDouble(rec.getData()[field_balance]);
-            int ph = Integer.parseInt(rec.getData()[field_phone]);
-            if (pin.equalsIgnoreCase(rec.getData()[field_pin]) && name.equalsIgnoreCase(rec.getData()[field_name])) {
+            double balance = Double.parseDouble(rec.getData()[client_field_balance]);
+            int ph = Integer.parseInt(rec.getData()[client_field_phone]);
+            if (pin.equalsIgnoreCase(rec.getData()[client_field_pin]) && name.equalsIgnoreCase(rec.getData()[client_field_name])) {
                 auth_id = rec.getId();
-                return cl = new Client(rec.getData()[field_name], ph, rec.getData()[field_pin], balance);
+                return cl = new Client(rec.getData()[client_field_name], ph, rec.getData()[client_field_pin], balance);
             }
         }
         return cl;
@@ -145,9 +148,9 @@ public class Communicator extends CsvDatabase {
         ArrayList<CsvRecord> allRecords = client_table.readAll();
         for (int k = 0; k < allRecords.size(); k++) {
             CsvRecord rec = allRecords.get(k);
-            double balance = Double.parseDouble(rec.getData()[field_balance]);
-            int ph = Integer.parseInt(rec.getData()[field_phone]);
-            arc.add(new Client(rec.getData()[field_name], ph, rec.getData()[field_pin], balance));
+            double balance = Double.parseDouble(rec.getData()[client_field_balance]);
+            int ph = Integer.parseInt(rec.getData()[client_field_phone]);
+            arc.add(new Client(rec.getData()[client_field_name], ph, rec.getData()[client_field_pin], balance));
         }
         return arc;
     }
@@ -210,8 +213,10 @@ public class Communicator extends CsvDatabase {
      * @throws IOException
      */
     public void logTransaction(Transaction transaction) throws IOException {
-        String[] s = new String[]{transaction.getType(), transaction.getAmount() + "", transaction.getBalance() + "", transaction.getReciever_phone() + "", transaction.getDate() + ""};
-        this.transaction_table.create(s);
+        CsvRecord read = client_table.read(auth_id);
+        String user_name = read.getData()[client_field_name];
+        String[] s = new String[]{user_name, transaction.getType(), transaction.getAmount() + "", transaction.getBalance() + "", transaction.getReciever_phone() + "", transaction.getDate() + ""};
+        transaction_table.create(s);
     }
 
     /**
@@ -222,15 +227,17 @@ public class Communicator extends CsvDatabase {
         ArrayList<CsvRecord> allRecords = transaction_table.readAll();
         for (int k = 0; k < allRecords.size(); k++) {
             CsvRecord rec = allRecords.get(k);
-            double balance = Double.parseDouble(rec.getData()[field_left_balance]);
-            double amount = Double.parseDouble(rec.getData()[field_amount]);
-            int ph = Integer.parseInt(rec.getData()[field_receiver_phone]);
+            double balance = Double.parseDouble(rec.getData()[tr_field_left_balance]);
+            double amount = Double.parseDouble(rec.getData()[tr_field_amount]);
+            int ph = Integer.parseInt(rec.getData()[tr_field_receiver_phone]);
             String reciever_name = "Not registered";
             Client reciever = searchClient("", ph, false, true, false);
+            CsvRecord read = client_table.read(1);
+            String user_name = read.getData()[client_field_name];
             if (reciever != null) {
                 reciever_name = reciever.getName();
             }
-            String dateString = rec.getData()[field_date];
+            String dateString = rec.getData()[tr_field_date];
 
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss zzz yyyy");
 
@@ -239,7 +246,7 @@ public class Communicator extends CsvDatabase {
             DateTimeFormatter format_output = DateTimeFormatter.ofPattern("MMM dd, yyyy hh:mm:ss a");
             String date_string = dateTime.format(format_output);
 
-            transaction.add(new Transaction(rec.getData()[field_type], amount, balance, ph, date_string, cl, reciever_name));
+            transaction.add(new Transaction(user_name, rec.getData()[tr_field_type], amount, balance, ph, date_string, cl, reciever_name));
         }
         return transaction;
     }

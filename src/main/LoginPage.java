@@ -134,14 +134,12 @@ public class LoginPage extends javax.swing.JFrame {
             try {
                 Communicator talk = new Communicator();
                 
-                String enter_name = userNameField.getText();
-                String enter_pin = pinField.getText();
+                String enter_name = userNameField.getText().trim();
+                String enter_pin = pinField.getText().trim();
                 
                 Client cl = talk.loginClient(enter_name, enter_pin);
                 if (cl != null) {
                     this.cl = cl;
-                    Transaction tr = new Transaction("Initial log", cl.getBalance(), cl.getBalance(), 0);
-                    talk.logTransaction(tr);
                     new MainMenuPage(cl).setVisible(true);
                     dispose();
                 } else {

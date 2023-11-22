@@ -162,14 +162,14 @@ public class RegistrationPage extends javax.swing.JFrame {
             try {
                 Communicator talk = new Communicator();
 
-                String name = nameField.getText();
+                String name = nameField.getText().trim();
                 int phoneNum = 0;
                 try {
-                    phoneNum = Integer.parseInt(phoneNumField.getText());
+                    phoneNum = Integer.parseInt(phoneNumField.getText().trim());
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(null, "Please provide correct format for phone number");
                 }
-                String pin = pinField.getText();
+                String pin = pinField.getText().trim();
                 double balance = 0;
 
                 Client details = new controller.src.Client(name, phoneNum, pin, balance);

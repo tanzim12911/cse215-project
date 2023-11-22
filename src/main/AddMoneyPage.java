@@ -139,7 +139,7 @@ public class AddMoneyPage extends javax.swing.JFrame {
             balance += Double.parseDouble(sent_amount);
 
             cl.setBalance(balance);
-
+            
             Transaction tr = new Transaction("Add Money", Double.parseDouble(sent_amount), cl.getBalance(), 0);
             Communicator talk;
             try {
