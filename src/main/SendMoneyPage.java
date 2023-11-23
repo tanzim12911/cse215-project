@@ -147,6 +147,12 @@ public class SendMoneyPage extends javax.swing.JFrame {
                 cl.setBalance(balance);
                 Transaction tr = new Transaction("Send Money", Double.parseDouble(sent_amount), cl.getBalance(), Integer.parseInt(phoneNum));
                 try {
+                    Client reciever = talk.searchClient("", Integer.parseInt(phoneNum), false, true, false);
+                    int id = talk.getID(Integer.parseInt(phoneNum));
+                    if (reciever != null && id != 0) {
+                        reciever.setBalance(reciever.getBalance() + Double.parseDouble(sent_amount));
+                        talk.updateClient(reciever, id);
+                    }
                     talk.updateClient(cl);
                     talk.logTransaction(tr);
                 } catch (IOException ex) {

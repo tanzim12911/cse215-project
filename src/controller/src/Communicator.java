@@ -128,6 +128,23 @@ public class Communicator extends CsvDatabase {
 
     /**
      *
+     * @param client
+     * @param id
+     * @return true for successful update, false for unsuccessful update
+     * @throws IOException
+     */
+    public boolean updateClient(Client client, int id) throws IOException {
+        String[] s = new String[]{client.getName(), "" + client.getPhoneNum(), client.getPin(), "" + client.getBalance()};
+        try {
+            client_table.update(id, s);
+            return true;
+        } catch (IOException ex) {
+            return false;
+        }
+    }
+
+    /**
+     *
      * @return true or false based on attempt
      * @throws IOException
      */
@@ -153,6 +170,23 @@ public class Communicator extends CsvDatabase {
             arc.add(new Client(rec.getData()[client_field_name], ph, rec.getData()[client_field_pin], balance));
         }
         return arc;
+    }
+
+    /**
+     *
+     * @param phone
+     * @return ID matching the phone
+     */
+    public int getID(int phone) {
+        int id = 0;
+        ArrayList<CsvRecord> allRecords = client_table.readAll();
+        for (int k = 0; k < allRecords.size(); k++) {
+            CsvRecord rec = allRecords.get(k);
+            if (Integer.parseInt(rec.getData()[client_field_phone]) == phone) {
+                return rec.getId();
+            }
+        }
+        return id;
     }
 
     /**
@@ -237,8 +271,8 @@ public class Communicator extends CsvDatabase {
             if (reciever != null) {
                 reciever_name = reciever.getName();
             }
-            System.out.println(read_auth.getData()[client_field_name]);
-            System.out.println(rec.getData()[tr_field_user]);
+//            System.out.println(read_auth.getData()[client_field_name]);
+//            System.out.println(rec.getData()[tr_field_user]);
             if (rec.getData()[tr_field_user].equalsIgnoreCase(read_auth.getData()[client_field_name])) {
 
                 String dateString = rec.getData()[tr_field_date];
